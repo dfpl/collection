@@ -5,31 +5,47 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-@SuppressWarnings("unused")
 public class JArrayList<E> implements List<E> {
 
 	private Object[] data;
 
 	public JArrayList() {
-		this.data = new Object[0];
+		data = new Object[0];
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return data.length;
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return data.length == 0;
 	}
 
 	@Override
 	public boolean contains(Object o) {
-		// TODO Auto-generated method stub
+		for (Object value : data) {
+			if (value.equals(o)) {
+				return true;
+			}
+		}
 		return false;
+	}
+	
+	@Override
+	public boolean add(E e) {
+		// 새로운 어레이 만들기
+		Object[] newData = new Object[data.length+1];
+		// 데이터 복사
+		for(int i = 0 ; i < data.length ; i++) {
+			newData[i] = data[i];
+		}
+		// 데이터 위에 얹기 
+		newData[newData.length-1] = e;
+		// ArrayList의 data를 갱신
+		data = newData;
+		return true;
 	}
 
 	@Override
@@ -50,11 +66,7 @@ public class JArrayList<E> implements List<E> {
 		return null;
 	}
 
-	@Override
-	public boolean add(E e) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	@Override
 	public boolean remove(Object o) {
@@ -95,7 +107,7 @@ public class JArrayList<E> implements List<E> {
 	@Override
 	public void clear() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
@@ -113,7 +125,7 @@ public class JArrayList<E> implements List<E> {
 	@Override
 	public void add(int index, E element) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
