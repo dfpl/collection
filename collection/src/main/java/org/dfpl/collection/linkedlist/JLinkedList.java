@@ -1,4 +1,4 @@
-package org.dfpl.collection.list;
+package org.dfpl.collection.linkedlist;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -8,8 +8,8 @@ import java.util.ListIterator;
 @SuppressWarnings("unused")
 public class JLinkedList<E> implements List<E> {
 	
-	private JNode head;
-	private JNode tail;
+	private JNode<E> head;
+	private JNode<E> tail;
 
 	public JLinkedList() {
 		head = null;
