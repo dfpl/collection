@@ -12,7 +12,6 @@ public class JLinkedList<E> implements List<E> {
 	JNode<E> start;
 	JNode<E> end;
 	int size;
-	// if start ,end != null -> SubList
 
 	public JLinkedList() {
 		head = tail = start = end = null;
@@ -39,17 +38,13 @@ public class JLinkedList<E> implements List<E> {
 		JNode<E> prevNode = oldNode.prev;
 		JNode<E> nextNode = oldNode.next;
 		E result = oldNode.value;
-		// prev 처리
 		if (prevNode == null) {
-			// 첫 노드 일때
 			head = nextNode;
 		} else {
 			prevNode.next = nextNode;
 			oldNode.prev = null;
 		}
-		// next 처리
 		if (nextNode == null) {
-			// 마지막 노드 일때
 			tail = prevNode;
 		} else {
 			nextNode.prev = prevNode;
@@ -141,7 +136,6 @@ public class JLinkedList<E> implements List<E> {
 		public void remove() {
 			JNode<E> result = lastReturned.next;
 			removeLink(lastReturned);
-			// 순회 중 삭제 대응
 			if (nextNode == lastReturned)
 				nextNode = result;
 			else
@@ -158,12 +152,10 @@ public class JLinkedList<E> implements List<E> {
 		public void add(E e) {
 			JNode<E> newNode = new JNode<E>(null, e, null);
 			if (lastReturned == null) {
-				// add first
 				nextNode.prev = newNode;
 				newNode.next = nextNode;
 				head = newNode;
 			} else if (nextNode == tail.next) {
-				// add last
 				newNode.prev = lastReturned;
 				lastReturned.next = newNode;
 				tail = newNode;
@@ -174,7 +166,6 @@ public class JLinkedList<E> implements List<E> {
 				newNode.prev = lastReturned;
 			}
 			size++;
-			// 순회 중 추가 대응
 			lastReturned = newNode;
 			nextIdx++;
 		}
@@ -242,7 +233,6 @@ public class JLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean addAll(Collection<? extends E> c) {
-		// 합집합
 		for (E e : c) {
 			add(e);
 		}
@@ -251,7 +241,6 @@ public class JLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean addAll(int index, Collection<? extends E> c) {
-		// 합집합
 		for (E e : c) {
 			add(index, e);
 		}
@@ -260,7 +249,6 @@ public class JLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean removeAll(Collection<?> c) {
-		// 차집합
 		Iterator<?> iter = iterator();
 		while (iter.hasNext()) {
 			if (c.contains(iter.next())) {
@@ -272,7 +260,6 @@ public class JLinkedList<E> implements List<E> {
 
 	@Override
 	public boolean retainAll(Collection<?> c) {
-		// 교집합
 		Iterator<?> iter = iterator();
 		while (iter.hasNext()) {
 			if (!c.contains(iter.next())) {
@@ -306,19 +293,15 @@ public class JLinkedList<E> implements List<E> {
 	@Override
 	public void add(int index, E element) {
 		JNode<E> newNode = new JNode<E>(null, element, null);
-		// sublist 에서 최소 1개의 노드를 가지고 있다라고 가정
 		if (head == null) {
-			// empty
 			head = newNode;
 			tail = newNode;
 
 		} else if (index == 0) {
-			// add first
 			head.prev = newNode;
 			newNode.next = head;
 			head = newNode;
 		} else if (index == size()) {
-			// add last
 			tail.next = newNode;
 			newNode.prev = tail;
 			tail = newNode;
@@ -336,7 +319,6 @@ public class JLinkedList<E> implements List<E> {
 
 	@Override
 	public E remove(int index) {
-		// idx > size -> getNode = null ???? try,except ?
 		E result = removeLink(getNode(index));
 		return result;
 	}
