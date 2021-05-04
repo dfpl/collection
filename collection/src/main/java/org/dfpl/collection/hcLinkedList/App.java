@@ -22,6 +22,13 @@ public class App {
 		while (sub_iter.hasNext()) {
 			System.out.println(sub_iter.next());
 		}
+		a.addAll(sub);
+//		Iterator<Integer> a_iter = a.iterator();
+		System.out.println("==============================================");
+		while (a_iter.hasNext()) {
+			System.out.println(a_iter.next());
+		}
+
 	}
 
 }

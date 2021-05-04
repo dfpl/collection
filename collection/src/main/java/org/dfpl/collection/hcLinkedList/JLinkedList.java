@@ -98,7 +98,13 @@ public class JLinkedList<E> implements List<E> {
 
 		@Override
 		public boolean hasNext() {
-			return nextIdx < size;
+			boolean result = nextIdx < size;
+			if (!result) {
+				nextIdx = 0;
+				nextNode = head;
+				lastReturned = null;
+			}
+			return result;
 		}
 
 		@Override
@@ -198,9 +204,13 @@ public class JLinkedList<E> implements List<E> {
 	public <T> T[] toArray(T[] a) {
 		int idx = a.length;
 		Object[] result = a;
-		for (JNode<E> i = head; i != null; i = i.next) {
+		for (JNode<E> i = head;; i = i.next) {
 			result[idx++] = i.value;
+			if (i == tail) {
+				break;
+			}
 		}
+
 		return a;
 	}
 
@@ -348,9 +358,12 @@ public class JLinkedList<E> implements List<E> {
 	@Override
 	public int lastIndexOf(Object o) {
 		int idx = size() - 1;
-		for (JNode<E> i = tail; i != null; i = i.prev, idx--) {
+		for (JNode<E> i = tail;; i = i.prev, idx--) {
 			if (i.value.equals(o)) {
 				return idx;
+			}
+			if (i == head) {
+				break;
 			}
 		}
 		return -1;
